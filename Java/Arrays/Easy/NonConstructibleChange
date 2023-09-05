@@ -1,0 +1,21 @@
+import java.util.*;
+
+class Program {
+
+  public int nonConstructibleChange(int[] coins) {
+    if(coins.length == 0){
+      return 1;
+    }
+    Arrays.sort(coins);
+    int currentChange = 0;
+    for(int i =0;i<coins.length;i++){
+      if(coins[i] > currentChange+1){
+        break;
+      }
+        currentChange += coins[i];
+    }
+    
+    return currentChange+1;
+  }
+}
+//tc: o(nlogn) | sc: o(1)
