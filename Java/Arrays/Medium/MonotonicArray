@@ -1,0 +1,26 @@
+import java.util.*;
+
+class Program {
+  public static boolean isMonotonic(int[] array) {
+    // Write your code here.
+
+    if(array.length<=1){
+      return true;
+    }
+    boolean isIncreasing = array[0]<array[array.length-1];
+    for(int i =1;i<array.length;i++){
+      if(isIncreasing && array[i]<array[i-1]){
+        return false;
+      }
+      if(!isIncreasing && array[i]>array[i-1]){
+        return false;
+      }
+    }
+
+
+
+
+
+    return true;
+  }
+}
