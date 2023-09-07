@@ -1,0 +1,21 @@
+import java.util.*;
+
+class Program {
+  public int[] missingNumbers(int[] nums) {
+    // Write your code here.
+    int n = nums.length+2;
+    int totalSum = (n*(n+1))/2;
+    int actualSum = 0;
+    for(int i : nums) actualSum += i;
+    int sumDiff = totalSum - actualSum;
+    int midPoint = sumDiff/2;
+    int sumRangeSmallerInclude = (midPoint*(midPoint+1))/2;
+    int leftSum = 0;
+    for(int i : nums){
+      if(i <= midPoint) leftSum += i;
+    }
+    int smallNumber = sumRangeSmallerInclude - leftSum;
+    int largeNumber = sumDiff - smallNumber;
+    return new int[] {smallNumber, largeNumber};
+  }
+}

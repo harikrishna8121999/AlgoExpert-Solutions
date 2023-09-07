@@ -1,0 +1,16 @@
+import java.util.*;
+
+class Program {
+  public boolean zeroSumSubarray(int[] nums) {
+    // Write your code here.
+    Set<Integer> set = new HashSet<>();
+    set.add(0);
+    int currentSum =0;
+    for(int i =0;i<nums.length;i++){
+      currentSum += nums[i];
+      if(set.contains(currentSum)) return true;
+      else set.add(currentSum);
+    }
+    return false;
+  }
+}
