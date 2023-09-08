@@ -1,0 +1,27 @@
+import java.util.*;
+
+class Program {
+  public static int[] largestRange(int[] array) {
+    // Write your code here.
+    if(array.length ==1) return new int[]{array[0], array[0]};
+    Set<Integer> set = new HashSet<>();
+    for(int n : array) set.add(n);
+    int range = 0;
+    int[] result = new int[2];
+    for(int num: array){
+
+      if(!set.contains(num-1)){
+        int curr = num;
+        while(set.contains(curr +1)){
+          curr++;
+        }
+        if(curr-num>range){
+          range = curr-num;
+          result[0] = num;
+          result[1] = curr;
+        }
+      }
+    }
+    return result;
+  }
+}

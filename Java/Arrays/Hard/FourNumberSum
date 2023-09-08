@@ -1,0 +1,33 @@
+import java.util.*;
+
+class Program {
+  public static List<Integer[]> fourNumberSum(int[] array, int targetSum) {
+    // Write your code here.
+    Map<Integer,List<Integer[]>> map = new HashMap<>();
+    List<Integer[]> result = new ArrayList<>();
+
+    for(int i = 0; i<array.length;i++){
+      for(int j = i+1;j<array.length;j++){
+        int newTarget = targetSum - (array[i]+array[j]);
+        if(map.containsKey(newTarget)){
+          for(Integer[] pairs : map.get(newTarget)){
+            Integer[] toAdd = new Integer[]{pairs[0], pairs[1],array[i], array[j]};
+            result.add(toAdd);
+          }
+        }
+      }
+      for(int k = 0;k<i;k++){
+        int key = array[i]+array[k];
+        Integer[] value = new Integer[]{array[i], array[k]};
+        if(!map.containsKey(key)){
+          map.put(key, new ArrayList<Integer[]>());
+          map.get(key).add(value);
+        }
+        else{
+          map.get(key).add(value);
+        }
+      }
+    }
+    return result;
+  }
+}
