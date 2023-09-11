@@ -1,0 +1,34 @@
+import java.util.*;
+
+class Program {
+  public static String underscorifySubstring(String str, String substring) {
+    // Write your code here.
+    boolean[] subs = new boolean[str.length()];
+    String res = "";
+    for(int i =0;i<=str.length()-substring.length();i++){
+      String sub = str.substring(i,i+substring.length());
+      if(sub.equals(substring)){
+        for(int j = i; j<i+substring.length();j++){
+          subs[j] = true;
+        }
+      }
+    }
+    int start = 0;
+    while(start < str.length()){
+      while(start < str.length() && subs[start] == false){
+        res +=str.charAt(start);
+        start++;
+      }
+
+      while(start < str.length() && subs[start] == true){
+        res += "_";
+        while(start < str.length() && subs[start] == true){
+          res+= str.charAt(start);
+          start++;
+        }
+        res += "_";
+      }
+    }
+    return res;
+  }
+}

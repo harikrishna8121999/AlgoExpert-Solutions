@@ -1,0 +1,37 @@
+import java.util.*;
+
+class Program {
+  public static String[] patternMatcher(String pattern, String str) {
+    // Write your code here.
+    int N= str.length();
+    int xCount = 0, yCount = 0;
+
+
+    for(char c : pattern.toCharArray()){
+      if(c == 'x') xCount++;
+      else yCount++;
+    }
+
+  for(int xLen = 1;xLen <= N; xLen++){
+    int yLen = 1;
+    if(yCount !=0) yLen = (N - (xCount*xLen))/yCount;
+    if(yLen < 0) continue;
+    if((xCount * xLen + yCount * yLen) != N) continue;
+
+    int startOfX = pattern.indexOf('x');
+    int startOfY = pattern.indexOf('y');
+
+    String patternX = startOfX != -1? str.substring(startOfX * yLen, startOfX * yLen + xLen):"";
+    String patternY = startOfY != -1? str.substring(startOfY * xLen, startOfY * xLen + yLen):"";
+
+    StringBuilder temp = new StringBuilder();
+    for(char c : pattern.toCharArray()){
+      if(c =='x') temp.append(patternX);
+      else temp.append(patternY);
+    }
+
+    if(temp.toString().equals(str)) return new String[]{patternX, patternY};
+  }
+    return new String[] {};
+  }
+}

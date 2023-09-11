@@ -1,0 +1,21 @@
+import java.util.*;
+class Program {
+  public static String longestSubstringWithoutDuplication(String str) {
+    // Write your code here
+    int lt =0, rt =0, n=str.length();
+    int[] longest = new int[]{0,0};
+    Set<Character> set = new HashSet<>();
+    while(rt < n){
+      if(!set.contains(str.charAt(rt))){
+        set.add(str.charAt(rt));
+        rt++;
+      }
+      else{
+        set.remove(str.charAt(lt));
+        lt++;
+      }
+      if(longest[1] - longest[0] < rt - lt) longest = new int[]{lt,rt};
+    }
+    return str.substring(longest[0], longest[1]);
+  }
+}
