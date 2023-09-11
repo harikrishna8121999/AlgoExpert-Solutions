@@ -1,0 +1,30 @@
+import java.util.*;
+
+class Program {
+
+  public boolean oneEdit(String stringOne, String stringTwo) {
+    // Write your code here.
+    int lengthOne = stringOne.length();
+    int lengthTwo = stringTwo.length();
+    boolean oneEdit = false;
+    int idxOne = 0, idxTwo = 0;
+    if(Math.abs(lengthOne - lengthTwo) > 1) return false;
+    while(idxOne < lengthOne && idxTwo < lengthTwo){
+      if(stringOne.charAt(idxOne)!=stringTwo.charAt(idxTwo)){
+        if(oneEdit) return false;
+        oneEdit = true;
+        if(lengthOne > lengthTwo) idxOne++;
+        else if(lengthTwo>lengthOne) idxTwo++;
+        else{
+          idxOne++;
+          idxTwo++;
+        }
+      }
+      else{
+      idxOne++;
+      idxTwo++;
+      }
+    }
+    return true;
+  }
+}

@@ -1,0 +1,26 @@
+import java.util.*;
+
+class Program {
+
+  public ArrayList<String> validIPAddresses(String string) {
+    // Write your code here.
+    ArrayList<String> result = new ArrayList<>();
+    for(int i = 0; i< string.length()-3;i++){
+      for(int j = i+1; j< string.length()-2;j++){
+        for(int k = j+1; k< string.length()-1;k++){
+          String partOne = string.substring(0,i+1);
+          String partTwo = string.substring(i+1,j+1);
+          String partThree = string.substring(j+1,k+1);
+          String partFour = string.substring(k+1);
+          if(validPart(partOne) && validPart(partTwo) && validPart(partThree) && validPart(partFour))
+            result.add(new String(partOne+"."+partTwo+"."+partThree+"."+partFour));
+        }
+      }
+    }
+    return result;
+  }
+
+  private boolean validPart(String part){
+    return Integer.parseInt(part)<256 && (part.length()>1 && part.charAt(0)!='0' || part.length()==1);
+  }
+}

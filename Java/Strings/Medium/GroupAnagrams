@@ -1,0 +1,20 @@
+import java.util.*;
+
+class Program {
+  public static List<List<String>> groupAnagrams(List<String> words) {
+    List<List<String>> groupedAnagrams = new ArrayList<>();
+    Map<String, List<String>> map = new HashMap<>();
+    for(String word: words){
+      char[] ch = word.toCharArray();
+      Arrays.sort(ch);
+      String sorted = new String(ch);
+      if(!map.containsKey(sorted)){
+        map.put(sorted, new ArrayList<>());
+      }
+      map.get(sorted).add(word);
+    }
+    // Write your code here.
+    groupedAnagrams.addAll(map.values());
+    return groupedAnagrams;
+  }
+}

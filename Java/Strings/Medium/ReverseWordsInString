@@ -1,0 +1,28 @@
+import java.util.*;
+
+class Program {
+
+  public String reverseWordsInString(String string) {
+    // Write your code here.
+    StringBuilder str = new StringBuilder();
+    List<String> words = new ArrayList<>();
+    int start = 0;
+    int i;
+    if(string.length() < 2 ) return string;
+    for(i =1;i<string.length();i++){
+      char currChar = string.charAt(i);
+      char prevChar = string.charAt(i-1);
+      if((currChar == ' ' || prevChar == ' ') && (currChar != prevChar)){
+        words.add(string.substring(start, i));
+        start = i;
+      }
+    }
+    words.add(string.substring(start, i));
+    System.out.print(string);
+    System.out.print(words);
+    for(i = words.size()-1; i>=0;i--){
+      str.append(words.get(i));
+    }
+    return str.toString();
+  }
+}

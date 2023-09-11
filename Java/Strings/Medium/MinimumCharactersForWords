@@ -1,0 +1,21 @@
+import java.util.*;
+
+class Program {
+
+  public char[] minimumCharactersForWords(String[] words) {
+    // Write your code here.
+    int hash[] = new int[255];
+    StringBuilder sb = new StringBuilder();
+    for(String word : words){
+      int[] temp = new int[255];
+      for(char c: word.toCharArray()){
+        temp[c]++;
+        if(temp[c] > hash[c]){
+          sb.append(c);
+          hash[c] = temp[c];
+        }
+      }
+    }
+    return sb.toString().toCharArray();
+  }
+}
