@@ -1,0 +1,26 @@
+import java.util.*;
+
+class Program {
+  public ArrayList<ArrayList<String>> semordnilap(String[] words) {
+    // Write your code here.
+    Set<String> wordSet = new HashSet<>();
+    ArrayList<ArrayList<String>> result = new ArrayList<>();
+    for(String word : words){
+      String reverse = reverse(word);
+      if(wordSet.contains(reverse)){
+        ArrayList<String> list = new ArrayList<String>();
+        list.add(word);
+        list.add(reverse);
+        result.add(list);
+        wordSet.remove(word);
+      }
+      else
+        wordSet.add(word);
+    }
+    return result;
+  }
+
+  private String reverse(String word){
+    return new StringBuilder(word).reverse().toString();
+  }
+}

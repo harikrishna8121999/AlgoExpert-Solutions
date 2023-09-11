@@ -1,0 +1,43 @@
+import java.util.*;
+
+class Program {
+  public String[] commonCharacters(String[] strings) {
+    // Write your code here.
+    String smallest = smallestString(strings);
+    Set<Character> set = new HashSet<>();
+    for(char ch : smallest.toCharArray())
+      set.add(ch);
+    for(String string : strings){
+      Set<Character> check = new HashSet<>();
+      for(char ch : string.toCharArray())
+        check.add(ch);
+      Set<Character> merge = new HashSet<>();
+      for(char ch: set)
+        if(check.contains(ch)) merge.add(ch);
+      set = merge;
+    }
+    int i = 0;
+    String[] result = new String[set.size()];
+    for(char ch:set) result[i++] = "" + ch;
+    return result;
+  }
+
+  // private Set<Character> removeNonExistenCharacters(String string, Set<Character> set){
+  //   Set<Character> check = new HashSet<>();
+  //   for(char ch : string.toCharArray())
+  //     check.add(ch);
+  //   for(char ch: set)
+  //     if(!check.contains(ch)) set.remove(ch);
+  //   return set;
+  // }
+
+  private String smallestString(String[] string){
+    String min = string[0];
+    for(String s : string){
+      if(s.length() < min.length()){
+        min = s;
+      }
+    }
+    return min;
+  }
+}
