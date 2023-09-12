@@ -1,0 +1,30 @@
+import java.util.*;
+
+class Program {
+  public static int findClosestValueInBst(BST tree, int target) {
+    // Write your code here.
+    return helper(tree, target, tree.value);
+  }
+
+  private static int helper(BST tree, int target, int closest){
+    if(tree == null)
+      return closest;
+    if(Math.abs(tree.value - target) < Math.abs(closest - target))
+      closest = tree.value;
+    if(target < tree.value)
+      return helper(tree.left, target, closest);
+    else if(target > tree.value)
+      return helper(tree.right, target, closest);
+    else
+      return closest;
+  }
+  static class BST {
+    public int value;
+    public BST left;
+    public BST right;
+
+    public BST(int value) {
+      this.value = value;
+    }
+  }
+}
