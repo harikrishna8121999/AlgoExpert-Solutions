@@ -1,0 +1,28 @@
+import java.util.*;
+
+class Program {
+  // This is an input class. Do not edit.
+  static class BST {
+    public int value;
+    public BST left = null;
+    public BST right = null;
+
+    public BST(int value) {
+      this.value = value;
+    }
+  }
+
+  public int findKthLargestValueInBst(BST tree, int k) {
+    // Write your code here.
+  return reverse(tree, k, new int[1]);
+
+
+  }
+  private static int reverse(BST tree, int k, int[] count){
+    if(tree == null || count[0] > k) return 0;
+    int r = reverse(tree.right, k, count);
+    if((count[0] +=1) == k) return tree.value;
+    int l = reverse(tree.left, k, count);
+    return l+r;
+  }
+}

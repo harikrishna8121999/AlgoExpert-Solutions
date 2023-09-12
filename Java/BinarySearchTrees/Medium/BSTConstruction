@@ -1,0 +1,90 @@
+import java.util.*;
+
+class Program {
+  static class BST {
+    public int value;
+    public BST left;
+    public BST right;
+
+    public BST(int value) {
+      this.value = value;
+    }
+
+    public BST insert(int value) {
+      // Write your code here.
+      // Do not edit the return statement of this method.
+      BST root =this;
+      while(root != null){
+       if(value < root.value){
+         if(root.left == null){
+           root.left = new BST(value);
+           break;
+         }
+         root = root.left;
+       }
+      else {
+        if(root.right == null){
+          root.right = new BST(value);
+          break;
+        }
+        root = root.right;
+      }
+      }
+
+      return this;
+    }
+
+    public boolean contains(int value) {
+      // Write your code here.
+      BST root = this;
+      while(root != null){
+        if(value == root.value) return true;
+        if(value < root.value) root = root.left;
+        else root = root.right;
+      }
+      return false;
+    }
+
+    public BST remove(int value) {
+      // Write your code here.
+      // Do not edit the return statement of this method.
+      removeHelper(this, value);
+      return this;
+    }
+
+    private BST removeHelper(BST root, int value){
+      if(root == null) return root;
+      if(value < root.value) root.left = removeHelper(root.left, value);
+      else if(value > root.value) root.right = removeHelper(root.right, value);
+      else {
+        if(root.left == null && root.right ==null) {
+          return null;
+        }
+        else if(root.left != null && root.right == null){
+          root.value = root.left.value;
+          root.right = root.left.right;
+          root.left = root.left.left;
+
+          return root;
+        }
+        else if(root.left == null && root.right != null){
+          root.value = root.right.value;
+          root.left = root.right.left;
+          root.right = root.right.right;
+          return root;
+        }
+        else {
+          int smallest = smallestValue(root.right);
+          root.value = smallest;
+          root.right = removeHelper(root.right, smallest);
+
+        }
+      }
+      return root;
+    }
+
+    private int smallestValue(BST root){
+      return root.left == null ? root.value : smallestValue(root.left);
+    }
+  }
+}
