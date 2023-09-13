@@ -1,0 +1,19 @@
+import java.util.*;
+
+class Program {
+  public static int numberOfWaysToMakeChange(int n, int[] denoms) {
+    // Write your code here.
+    if(denoms.length == 0) return 0;
+    int[] ways = new int[n+1];
+    Arrays.fill(ways, 0);
+    ways[0] = 1;
+    for(int i : denoms){
+      for(int amount=0; amount<ways.length;amount++){
+        if(i <= amount){
+          ways[amount] += ways[amount - i];
+        }
+      }
+    }
+    return ways[ways.length -1];
+  }
+}

@@ -1,0 +1,22 @@
+import java.util.*;
+
+class Program {
+
+  public int numberOfWaysToTraverseGraph(int width, int height) {
+    // Write your code here.
+    int numberOfWaysToRight = width -1;
+    int numberOfWaysToDown = height-1;
+    int numerator = factorial(numberOfWaysToRight + numberOfWaysToDown);
+    int denom = factorial(numberOfWaysToRight) * factorial(numberOfWaysToDown);
+    return numerator/denom;
+  }
+
+  private int factorial(int num){
+    int result = 1;
+    for(int i =1;i<num+1;i++){
+      result *= i;
+    }
+
+   return result;
+  }
+}

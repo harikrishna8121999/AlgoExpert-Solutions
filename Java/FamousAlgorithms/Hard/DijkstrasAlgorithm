@@ -1,0 +1,39 @@
+import java.util.*;
+
+class Program {
+  public int[] dijkstrasAlgorithm(int start, int[][][] edges) {
+    // Write your code here.
+    int[] result = new int[edges.length];
+    Arrays.fill(result, -1);
+    HashSet<Integer> visited = new HashSet<>();
+    PriorityQueue<Item> queue = new PriorityQueue<>(Comparator.comparingInt(o -> o.totalDistance));
+    result[start] = 0;
+    visited.add(start);
+    for(int[] edge : edges[start]){
+      queue.offer(new Item(edge[0], edge[1], edge[1]));
+    }
+
+    while(visited.size()< edges.length && !queue.isEmpty()){
+      Item nextNode = queue.poll();
+      if(visited.contains(nextNode.id)) continue;
+      visited.add(nextNode.id);
+      result[nextNode.id] = nextNode.totalDistance;
+      for(int[] edge:edges[nextNode.id]){
+        if(!visited.contains(edge[0])) queue.offer(new Item(edge[0],edge[1]+nextNode.totalDistance,edge[1]));
+      }
+    }
+    return result;
+  }
+
+  public static class Item {
+    public int id;
+    public int totalDistance;
+    public int distance;
+
+    public Item(int id, int totalDistance, int distance) {
+      this.id = id;
+      this.totalDistance = totalDistance;
+      this.distance = distance;
+    }
+  }
+}
