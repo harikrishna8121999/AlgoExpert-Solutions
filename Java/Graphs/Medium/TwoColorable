@@ -1,0 +1,25 @@
+import java.util.*;
+
+class Program {
+
+  public boolean twoColorable(int[][] edges) {
+    // Write your code here.
+    String[] colors = new String[edges.length];
+    Set<Integer> visited =new HashSet<>();
+    Stack<Integer> stack = new Stack<>();
+    colors[0] = "BLUE";
+    stack.push(0);
+    while(stack.size()>0){
+      int current = stack.pop();
+      visited.add(current);
+      for(int neighbour : edges[current]){
+        if(!visited.contains(neighbour)){
+          stack.push(neighbour);
+          colors[neighbour] = colors[current]=="BLUE"?"GREEN":"BLUE";
+        }
+        else if(colors[current] == colors[neighbour]) return false;
+      }
+    }
+    return true;
+  }
+}

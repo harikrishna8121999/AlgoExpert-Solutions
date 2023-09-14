@@ -1,0 +1,44 @@
+import java.util.*;
+
+class Program {
+
+  public int minimumPassesOfMatrix(int[][] matrix) {
+    // Write your code here.
+    Queue<int[]> queue = new LinkedList<>();
+    for(int i = 0; i < matrix.length; i++){
+      for(int j = 0; j< matrix[i].length; j++){
+        if(matrix[i][j]>0) queue.add(new int[]{i,j});
+      }
+    }
+    int minpass = 0;
+    int[][] dir = {{1,0},{-1,0},{0,1},{0,-1}};
+
+    while(!queue.isEmpty()){
+      int size = queue.size();
+      boolean wasAbleToConvert = false;
+      for(int i=0; i<size;i++){
+        int[] pos = queue.poll();
+        for(int[] dirs : dir){
+        int row = pos[0] + dirs[0];
+        int col = pos[1] + dirs[1];
+        if(row < 0 || col < 0 || row >= matrix.length || col >= matrix[0].length
+           || matrix[row][col] >= 0) continue;
+        matrix[row][col] *= -1;
+        queue.add(new int[]{row,col});
+        wasAbleToConvert = true;
+        }
+      }
+      if(wasAbleToConvert) minpass++;
+    }
+    return allPositive(matrix)?minpass:-1;
+  }
+
+  public boolean allPositive(int[][] matrix){
+    for(int i = 0; i <matrix.length; i++){
+      for(int j = 0; j< matrix[i].length; j++){
+        if(matrix[i][j]<0) return false;
+      }
+    }
+    return true;
+  }
+}

@@ -1,0 +1,25 @@
+import java.util.*;
+
+class Program {
+  public static boolean hasSingleCycle(int[] array) {
+    // Write your code here.
+    int currentIdx = 0;
+    int visited = 0;
+    while(visited < array.length){
+      if(visited > 0 && currentIdx == 0) return false;
+      visited++;
+      currentIdx = getNext(currentIdx, array);
+
+    }
+     return currentIdx==0;
+}
+  private static int getNext(int currentIdx, int[] array){
+    int jump = array[currentIdx];
+    currentIdx = (jump + currentIdx) % array.length;
+    // if(currentIdx < 0) currentIdx = currentIdx + array.length;
+    // else
+    //   return currentIdx;
+    currentIdx = currentIdx < 0 ? currentIdx + array.length : currentIdx;
+    return currentIdx;
+  }
+}

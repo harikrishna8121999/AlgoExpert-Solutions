@@ -1,0 +1,55 @@
+import java.util.*;
+
+class Program {
+  public static AncestralTree getYoungestCommonAncestor(
+      AncestralTree topAncestor, AncestralTree descendantOne, AncestralTree descendantTwo) {
+    // Write your code here.
+    int depthOne = getDepth(descendantOne, topAncestor);
+    int depthTwo = getDepth(descendantTwo, topAncestor);
+    if(depthOne > depthTwo){
+      return backTrack(descendantOne, descendantTwo, depthOne - depthTwo);
+    }
+    else {
+      return backTrack(descendantTwo, descendantOne, depthTwo - depthOne);
+    }
+
+  }
+
+  private static int getDepth(AncestralTree descendant, AncestralTree ancestor){
+  int depth = 0;
+  while(descendant != ancestor){
+    descendant = descendant.ancestor;
+    depth++;
+  }
+    return depth;
+  }
+
+  private static AncestralTree backTrack(AncestralTree lowerDescendant, AncestralTree higherDescendant, int diff){
+    while(diff > 0){
+      lowerDescendant = lowerDescendant.ancestor;
+      diff--;
+    }
+    while(lowerDescendant != higherDescendant){
+      lowerDescendant = lowerDescendant.ancestor;
+      higherDescendant = higherDescendant.ancestor;
+    }
+    return lowerDescendant;
+  }
+
+  static class AncestralTree {
+    public char name;
+    public AncestralTree ancestor;
+
+    AncestralTree(char name) {
+      this.name = name;
+      this.ancestor = null;
+    }
+
+    // This method is for testing only.
+    void addAsAncestor(AncestralTree[] descendants) {
+      for (AncestralTree descendant : descendants) {
+        descendant.ancestor = this;
+      }
+    }
+  }
+}

@@ -1,0 +1,22 @@
+import java.util.*;
+
+class Program {
+
+  public boolean cycleInGraph(int[][] edges) {
+    // Write your code here.
+    for(int vertex = 0; vertex < edges.length; vertex++){
+      if(dfs(edges, vertex, new HashSet<>())) return true;
+    }
+    return false;
+  }
+
+  public boolean dfs(int[][]edges, int vertex, Set<Integer> visited){
+    if(visited.contains(vertex)) return true;
+    visited.add(vertex);
+    for(int edge : edges[vertex]){
+      if(dfs(edges, edge, visited)) return true;
+    }
+    visited.remove(vertex);
+    return false;
+  }
+}
