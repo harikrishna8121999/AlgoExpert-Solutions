@@ -1,0 +1,53 @@
+import java.util.*;
+
+class Program {
+  public static int[] mergeSort(int[] array) {
+    // Write your code here.
+    divide(array, 0, array.length-1);
+    return array;
+  }
+
+  private static void divide(int[] arr, int start, int end){
+    if(start==end){
+      return;
+    }
+    int mid =(start + end)/2;
+    divide(arr, start, mid);
+    divide(arr, mid+1, end);
+    conquer(arr, start, mid, end);
+  }
+  private static void conquer(int[] arr, int s, int m, int e){
+    int[] merged = new int[e - s + 1];
+    int idx1 = s;
+    int idx2 = m+1;
+    int x = 0;
+    while(idx1<= m && idx2 <=e){
+      if(arr[idx1]<=arr[idx2]){
+        merged[x] = arr[idx1];
+        x++;
+        idx1++;
+      }
+      else{
+        merged[x] = arr[idx2];
+        x++;
+        idx2++;
+      }
+    }
+    while(idx1<=m){
+      merged[x] = arr[idx1];
+      x++;
+      idx1++;
+    }
+
+    while(idx2<=e){
+      merged[x] = arr[idx2];
+      x++;
+      idx2++;
+    }
+
+    for(int i =0,j=s; i<merged.length;i++,j++){
+      arr[j]=merged[i];
+    }
+
+      }
+}
