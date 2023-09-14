@@ -1,0 +1,42 @@
+import java.util.*;
+
+class Program {
+  public static int[] quickSort(int[] array) {
+    // Write your code here.
+    sortHelper(array, 0, array.length-1);
+    return array;
+  }
+  public static void sortHelper(int[] array, int start, int end){
+    if(start>=end)
+      return;
+    int left = start+1, right = end;
+    int pivot = start;
+    while(left<=right){
+      if(array[left]>array[pivot] && array[right]<array[pivot]){
+        swap(array, left, right);
+      }
+      if(array[left]<=array[pivot]){
+        left++;
+      }
+      if(array[right]>=array[pivot]){
+        right--;
+      }
+    }
+    swap(array, right, pivot);
+    boolean isLeftPartGreater = right - 1 - start > end - (right+1);
+    if(isLeftPartGreater){
+      sortHelper(array, right+1, end);
+      sortHelper(array, start, right -1);
+    }
+    else{
+      sortHelper(array, start, right -1);
+      sortHelper(array, right+1, end);
+    }
+  }
+
+  private static void swap(int[] array, int leftIdx, int rightIdx){
+    int temp = array[leftIdx];
+    array[leftIdx] = array[rightIdx];
+    array[rightIdx] = temp;
+  }
+}
