@@ -1,0 +1,44 @@
+import java.util.*;
+
+class Program {
+  // Do not edit the class below except for the
+  // populateSuffixTrieFrom and contains methods.
+  // Feel free to add new properties and methods
+  // to the class.
+  static class TrieNode {
+    Map<Character, TrieNode> children = new HashMap<Character, TrieNode>();
+  }
+
+  static class SuffixTrie {
+    TrieNode root = new TrieNode();
+    char endSymbol = '*';
+
+    public SuffixTrie(String str) {
+      populateSuffixTrieFrom(str);
+    }
+
+    public void populateSuffixTrieFrom(String str) {
+      // Write your code here.
+      for(int i =0;i<str.length();i++){
+        TrieNode cur = root;
+        String suffix = str.substring(i);
+        for(Character ch : suffix.toCharArray()){
+          if(!cur.children.containsKey(ch)) cur.children.put(ch,new TrieNode());
+
+          cur = cur.children.get(ch);
+        }
+        cur.children.put(endSymbol,null);
+      }
+    }
+
+    public boolean contains(String str) {
+      // Write your code here.
+      TrieNode curr = root;
+      for(Character ch : str.toCharArray()){
+        if(!curr.children.containsKey(ch)) return false;
+        curr = curr.children.get(ch);
+      }
+      return (curr.children.containsKey(endSymbol));
+    }
+  }
+}
