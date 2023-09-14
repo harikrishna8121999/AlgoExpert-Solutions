@@ -1,0 +1,26 @@
+import java.util.*;
+
+class Program {
+  public static int binarySearch(int[] array, int target) {
+    // Write your code here.
+    return helper(array, target, 0, array.length-1);
+  }
+
+  public static int helper(int[] array, int target , int start, int end){
+    if(start>end)
+      return -1;
+
+    int mid = (start+end)/2;
+    int result = array[mid];
+    if(result == target){
+      return mid;
+    }
+    else if(result>target){
+      return helper(array, target,start, mid-1);
+    }
+    else {
+      return helper(array, target,mid+1,end);
+    }
+  }
+}
+
