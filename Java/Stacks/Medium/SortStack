@@ -1,0 +1,30 @@
+import java.util.*;
+
+class Program {
+
+  public ArrayList<Integer> sortStack(ArrayList<Integer> stack) {
+    // Write your code here.
+    if(stack.size()==0) return stack;
+    int top = stack.remove(stack.size()-1);
+    sortStack(stack);
+    insert(stack, top);
+    return stack;
+  }
+
+  private static void insert(ArrayList<Integer> stack, int value){
+    if(stack.size()==0){
+      stack.add(value);
+      return;
+    }
+    int cur = stack.get(stack.size()-1);
+    if(cur > value){
+      stack.remove(stack.size()-1);
+      insert(stack, value);
+      stack.add(cur);
+    }
+    else {
+      stack.add(value);
+      return;
+    }
+  }
+}
