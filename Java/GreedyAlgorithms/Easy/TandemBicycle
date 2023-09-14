@@ -1,0 +1,20 @@
+import java.util.*;
+
+class Program {
+
+  public int tandemBicycle(int[] redShirtSpeeds, int[] blueShirtSpeeds, boolean fastest) {
+    // Write your code here.
+    Arrays.sort(redShirtSpeeds);
+    Arrays.sort(blueShirtSpeeds);
+    int sum =0;
+    int direction = fastest?-1:1;
+    int bluePointer = 0;
+    int redPointer = fastest?redShirtSpeeds.length-1:0;
+    while(bluePointer < blueShirtSpeeds.length){
+      sum += Math.max(redShirtSpeeds[redPointer], blueShirtSpeeds[bluePointer]);
+      bluePointer++;
+      redPointer += direction;
+    }
+    return sum;
+  }
+}
