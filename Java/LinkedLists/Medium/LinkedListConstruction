@@ -1,0 +1,109 @@
+import java.util.*;
+
+// Feel free to add new properties and methods to the class.
+class Program {
+  static class DoublyLinkedList {
+    public Node head;
+    public Node tail;
+
+    public void setHead(Node node) {
+      // Write your code here.
+      if(this.head == null){
+        this.head = node;
+        this.tail =node;
+        return;
+      }
+      insertBefore(this.head, node);
+    }
+
+    public void setTail(Node node) {
+      // Write your code here.
+      if(this.head == null){
+        setHead(node);
+      }
+      insertAfter(this.tail,node);
+    }
+
+    public void insertBefore(Node node, Node nodeToInsert) {
+      // Write your code here.
+      if(nodeToInsert == this.head && nodeToInsert == this.tail) return;
+      this.remove(nodeToInsert);
+      nodeToInsert.prev = node.prev;
+      nodeToInsert.next = node;
+      if(node.prev == null) this.head = nodeToInsert;
+      else node.prev.next = nodeToInsert;
+      node.prev = nodeToInsert;
+    }
+
+    public void insertAfter(Node node, Node nodeToInsert) {
+      // Write your code here.
+      if(nodeToInsert == this.head && nodeToInsert == this.tail) return;
+      this.remove(nodeToInsert);
+      nodeToInsert.prev = node;
+      nodeToInsert.next = node.next;
+      if(node.next == null) this.tail = nodeToInsert;
+      else node.next.prev = nodeToInsert;
+      node.next = nodeToInsert;
+    }
+
+    public void insertAtPosition(int position, Node nodeToInsert) {
+      // Write your code here.
+      Node current = this.head;
+      int curposition = 1;
+      if(position == 1){
+        setHead(nodeToInsert);
+        return;
+      }
+      while(current != null && curposition != position){
+        current = current.next;
+        curposition++;
+      }
+      if(current!=null){
+        insertBefore(current, nodeToInsert);
+      }
+      else setTail(nodeToInsert);
+    }
+
+    public void removeNodesWithValue(int value) {
+      // Write your code here.
+      Node current = this.head;
+      while(current != null){
+        Node temp = current;
+        current = current.next;
+        if(temp.value == value) remove(temp);
+      }
+    }
+
+    public void remove(Node node) {
+      // Write your code here.
+      if(node == this.head) this.head = this.head.next;
+      if(node == this.tail) this.tail = this.tail.prev;
+
+      if(node.prev!= null) node.prev.next = node.next;
+      if(node.next != null) node.next.prev = node.prev;
+      node.next = null;
+      node.prev = null;
+    }
+
+    public boolean containsNodeWithValue(int value) {
+      // Write your code here.
+      Node current = this.head;
+      while(current != null){
+        if(current.value == value) return true;
+        current = current.next;
+      }
+      return false;
+    }
+  }
+
+  // Do not edit the class below.
+  static class Node {
+    public int value;
+    public Node prev;
+    public Node next;
+
+    public Node(int value) {
+      this.value = value;
+    }
+  }
+}
