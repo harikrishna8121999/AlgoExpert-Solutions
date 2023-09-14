@@ -1,0 +1,30 @@
+import java.util.*;
+
+class Program {
+
+  public ArrayList<ArrayList<Integer>> taskAssignment(int k, ArrayList<Integer> tasks) {
+    // Write your code here.
+    ArrayList<Integer> sortedCopy = new ArrayList<>(tasks);
+    Collections.sort(sortedCopy);
+    ArrayList<ArrayList<Integer>> total = new ArrayList<ArrayList<Integer>>();
+
+    int i = 0;
+    int j = tasks.size()-1;
+    while(i <= j){
+      ArrayList<Integer> group = new ArrayList<Integer>();
+      int valueOne = sortedCopy.get(i);
+      int valueTwo = sortedCopy.get(j);
+      int firstIdx = tasks.indexOf(valueOne);
+      int secondIdx = tasks.indexOf(valueTwo);
+      group.add(firstIdx);
+      group.add(secondIdx);
+      total.add(group);
+      tasks.set(firstIdx, -1);
+      tasks.set(secondIdx, -1);
+      i++;
+      j--;
+    }
+
+    return total;
+  }
+}

@@ -1,0 +1,18 @@
+import java.util.*;
+
+class Program {
+
+  public int validStartingCity(int[] distances, int[] fuel, int mpg) {
+    // Write your code here.
+    int fuelLeft = 0;
+    int start_index = 0;
+    for(int i=0;i<fuel.length;i++){
+      fuelLeft += fuel[i]*mpg - distances[i];
+      if(fuelLeft < 0){
+        start_index = i+1;
+        fuelLeft = 0;
+      }
+    }
+    return start_index;
+  }
+}
