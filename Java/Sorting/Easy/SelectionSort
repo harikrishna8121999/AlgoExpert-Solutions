@@ -1,0 +1,22 @@
+import java.util.*;
+
+class Program {
+  public static int[] selectionSort(int[] array) {
+    // Write your code here.
+    int currentIdx = 0;
+    while(currentIdx < array.length){
+      int smallest = currentIdx;
+      for(int i = currentIdx+1; i< array.length;i++){
+        if(array[smallest]>array[i]){
+          smallest = i;
+        }
+
+      }
+      int temp = array[smallest];
+        array[smallest] = array[currentIdx];
+        array[currentIdx] = temp;
+      currentIdx++;
+    }
+    return array;
+  }
+}
