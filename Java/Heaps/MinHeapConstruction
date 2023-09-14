@@ -1,0 +1,84 @@
+import java.util.*;
+
+// Do not edit the class below except for the buildHeap,
+// siftDown, siftUp, peek, remove, and insert methods.
+// Feel free to add new properties and methods to the class.
+class Program {
+  static class MinHeap {
+    List<Integer> heap = new ArrayList<Integer>();
+
+    public MinHeap(List<Integer> array) {
+      heap = buildHeap(array);
+    }
+
+    public List<Integer> buildHeap(List<Integer> array) {
+      // Write your code here.
+      int n = array.size();
+      int lastIdx = n-1;
+      int firstParentIdx = ((lastIdx)-1)/2;
+      for(int currIdx = firstParentIdx;currIdx >=0; currIdx--){
+        siftDown(currIdx, n-1, array);
+      }
+      return array;
+    }
+
+    public void siftDown(int currentIdx, int endIdx, List<Integer> heap) {
+      // Write your code here.
+      while(2*currentIdx+1 <= endIdx){
+        int lchild = 2*currentIdx+1;
+        int rchild = lchild+1;
+        int swapIdx = -1;
+        if(rchild>endIdx || heap.get(lchild)<= heap.get(rchild)) swapIdx = lchild;
+        else swapIdx = rchild;
+        if(heap.get(currentIdx) > heap.get(swapIdx)){
+          swap(heap, currentIdx, swapIdx);
+          currentIdx = swapIdx;
+        }
+        else return;
+      }
+    }
+
+    public void siftUp(int currentIdx, List<Integer> heap) {
+      // Write your code here.
+      while(currentIdx > 0){
+        int parentIdx = (currentIdx-1)/2;
+        if(heap.get(parentIdx) > heap.get(currentIdx)){
+          swap(heap, currentIdx, parentIdx);
+          currentIdx = parentIdx;
+        }
+        else break;
+      }
+    }
+
+    public int peek() {
+      // Write your code here.
+      if(heap.size()>0) return heap.get(0);
+      return -1;
+    }
+
+    public int remove() {
+      // Write your code here.
+      int n = heap.size();
+      if(n > 0){
+        swap(heap, 0, n-1);
+        int removed = heap.get(n-1);
+        heap.remove(n-1);
+        siftDown(0 , n-1, heap);
+        return removed;
+      }
+      return -1;
+    }
+
+    public void insert(int value) {
+      // Write your code here.
+      heap.add(value);
+      siftUp(heap.size()-1, heap);
+    }
+
+    public void swap(List<Integer> heap, int idx1, int idx2){
+      int temp = heap.get(idx1);
+      heap.set(idx1, heap.get(idx2));
+      heap.set(idx2, temp);
+    }
+  }
+}
