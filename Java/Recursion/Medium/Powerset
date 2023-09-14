@@ -1,0 +1,21 @@
+import java.util.*;
+
+class Program {
+  public static List<List<Integer>> powerset(List<Integer> array) {
+    // Write your code here.
+    List<List<Integer>> powerSet = new ArrayList<>();
+    powerset(array, new ArrayList<>(),0, powerSet);
+    return powerSet;
+  }
+  public static void powerset(List<Integer> array, List<Integer> subSequence, int p, List<List<Integer>> powerSet){
+    powerSet.add(new ArrayList<>(subSequence));
+    if(subSequence.size()==array.size()){
+      return;
+    }
+    for(int i=p;i<array.size();i++){
+      subSequence.add(array.get(i));
+      powerset(array,subSequence,i+1,powerSet);
+      subSequence.remove(subSequence.size()-1);
+    }
+  }
+}

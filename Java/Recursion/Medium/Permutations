@@ -1,0 +1,28 @@
+import java.util.*;
+
+class Program {
+  public static List<List<Integer>> getPermutations(List<Integer> array) {
+    // Write your code here.
+    List<List<Integer>> result = new ArrayList<List<Integer>>();
+    getPermutations(0, array, result);
+    return result;
+  }
+  private static void getPermutations(int i, List<Integer> array, List<List<Integer>> result){
+    if(i==array.size()-1){
+      result.add(new ArrayList<>(array));
+    }
+    else{
+      for(int j = i; j<array.size();j++){
+        swap(array,i,j);
+        getPermutations(i+1, array, result);
+        swap(array,i,j);
+      }
+    }
+  }
+
+  private static void swap(List<Integer> array, int i, int j){
+    Integer temp = array.get(i);
+    array.set(i, array.get(j));
+    array.set(j, temp);
+  }
+}

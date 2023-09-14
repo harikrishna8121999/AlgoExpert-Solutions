@@ -1,0 +1,20 @@
+import java.util.*;
+
+class Program {
+  //Sliding Window Approach
+  public int staircaseTraversal(int height, int maxSteps) {
+    // Write your code here.
+    int[] dp = new int[height+1];
+    dp[0] = 1;
+    int currentNumberOfWays = 0;
+    for(int i =1;i<dp.length;i++){
+      int startOfWindow = i - maxSteps -1;
+      int endOfWindow = i - 1;
+      if(startOfWindow >= 0) currentNumberOfWays -= dp[startOfWindow];
+      currentNumberOfWays += dp[endOfWindow];
+      dp[i] = currentNumberOfWays;
+    }
+
+    return dp[height];
+  }
+}

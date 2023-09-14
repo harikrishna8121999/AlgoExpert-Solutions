@@ -1,0 +1,37 @@
+import java.util.*;
+
+class Program {
+
+  public ArrayList<String> phoneNumberMnemonics(String phoneNumber) {
+    // Write your code here.
+    Map<Character, List<Character>> map = new HashMap<>();
+    map.put('0', new ArrayList<>(Arrays.asList('0')));
+    map.put('1', new ArrayList<>(Arrays.asList('1')));
+    map.put('2', new ArrayList<>(Arrays.asList('a','b','c')));
+    map.put('3', new ArrayList<>(Arrays.asList('d','e','f')));
+    map.put('4', new ArrayList<>(Arrays.asList('g','h','i')));
+    map.put('5', new ArrayList<>(Arrays.asList('j','k','l')));
+    map.put('6', new ArrayList<>(Arrays.asList('m','n','o')));
+    map.put('7', new ArrayList<>(Arrays.asList('p','q','r','s')));
+    map.put('8', new ArrayList<>(Arrays.asList('t','u','v')));
+    map.put('9', new ArrayList<>(Arrays.asList('w','x','y','z')));
+    ArrayList<String> l = new ArrayList<>();
+    recur(phoneNumber.toCharArray(),0,l,map);
+    return l;
+
+  }
+  private void recur(char[] ph, int idx, ArrayList<String> l, Map<Character, List<Character>>m){
+    if(idx ==ph.length){
+      l.add(new String(ph));
+      return;
+    }
+    List<Character> l1 = m.get(ph[idx]);
+    char prev = ph[idx];
+    for(int i=0;i<l1.size();i++){
+      ph[idx] = l1.get(i);
+      recur(ph,idx+1,l,m);
+    }
+    ph[idx] = prev;
+  }
+
+}
